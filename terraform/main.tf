@@ -9,7 +9,9 @@ terraform {
   }
 
   cloud {
-    organization = "YOUR_TFC_ORG"
+    # This is the demo author's HCP Terraform organization.
+    # Change this to your own organization before running the demo elsewhere.
+    organization = "lab-larry"
 
     workspaces {
       name = "search-import-demo"

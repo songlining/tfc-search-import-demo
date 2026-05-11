@@ -44,11 +44,13 @@ Generated runtime files are intentionally not source-controlled:
 
 ## Required Configuration
 
-Before running the demo, update `terraform/main.tf` with your HCP Terraform organization:
+This repo defaults to the demo author's HCP Terraform organization. Before running the demo in your own account, update `terraform/main.tf` with your HCP Terraform organization:
 
 ```hcl
 cloud {
-  organization = "YOUR_TFC_ORG"
+  # This is the demo author's HCP Terraform organization.
+  # Change this to your own organization before running the demo elsewhere.
+  organization = "lab-larry"
 
   workspaces {
     name = "search-import-demo"
@@ -113,7 +115,7 @@ The query file uses `TF_VAR_rg_name` from that env file to scope discovery for s
 
 | Symptom | Cause | Fix |
 | --- | --- | --- |
-| `terraform init` points at `YOUR_TFC_ORG` | `terraform/main.tf` still has the placeholder org | Replace `YOUR_TFC_ORG` with your HCP Terraform org. |
+| `terraform init` points at the wrong HCP Terraform org | `terraform/main.tf` still has the demo author's org | Replace `lab-larry` with your HCP Terraform org. |
 | Query exits 1 after the remote run starts | `resource-ids.env` was not sourced in the current shell | Run `source ./resource-ids.env`, then rerun `terraform query`. |
 | Search & Import page shows no resources | Query did not run against the generated resource group | Source `resource-ids.env`, run `terraform query`, then refresh the Search & Import page. |
 | Azure auth error in query run | Workspace OIDC variables or federated credentials are missing | Run `scripts/02-bootstrap-tfc-oidc.sh`, then set the five workspace env vars from `tfc-oidc.env`. |
