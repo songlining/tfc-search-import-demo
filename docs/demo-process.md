@@ -82,6 +82,15 @@ Open `terraform/search.tfquery.hcl`. It contains provider-backed `list` blocks f
 
 ## 5. Run The Query From The CLI
 
+Make sure no previous generated config is active in the Terraform directory. Terraform loads every `*.tf` file before it runs the query, so an old `generated.tf` can break discovery.
+
+```bash
+cd tfc-search-import-demo
+if [ -f terraform/generated.tf ]; then
+	mv terraform/generated.tf terraform/generated.latest.tf.example
+fi
+```
+
 ```bash
 cd tfc-search-import-demo
 source ./resource-ids.env
@@ -99,7 +108,7 @@ list.azurerm_virtual_network.clickops  name=searchdemo-vnet-1234,resource_group_
 list.azurerm_storage_account.clickops  name=searchdemosa1234,resource_group_name=searchdemo-rg-1234,subscription_id=...   searchdemosa1234
 ```
 
-If the query exits with status 1 after the remote run starts, first check that you sourced `resource-ids.env` in the current shell.
+If the query exits with status 1 after the remote run starts, first check that you sourced `resource-ids.env` in the current shell and that no previous `generated.tf` is still active in the Terraform directory.
 
 ## 6. Show Selection In The HCP Terraform UI
 

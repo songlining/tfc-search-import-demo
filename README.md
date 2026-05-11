@@ -116,7 +116,7 @@ The query file uses `TF_VAR_rg_name` from that env file to scope discovery for s
 | Symptom | Cause | Fix |
 | --- | --- | --- |
 | `terraform init` points at the wrong HCP Terraform org | `terraform/main.tf` still has the demo author's org | Replace `lab-larry` with your HCP Terraform org. |
-| Query exits 1 after the remote run starts | `resource-ids.env` was not sourced in the current shell | Run `source ./resource-ids.env`, then rerun `terraform query`. |
+| Query exits 1 after the remote run starts | `resource-ids.env` was not sourced, or an old `terraform/generated.tf` is still active | Run `source ./resource-ids.env`, move `terraform/generated.tf` to `terraform/generated.latest.tf.example`, then rerun `terraform query`. |
 | Search & Import page shows no resources | Query did not run against the generated resource group | Source `resource-ids.env`, run `terraform query`, then refresh the Search & Import page. |
 | Azure auth error in query run | Workspace OIDC variables or federated credentials are missing | Run `scripts/02-bootstrap-tfc-oidc.sh`, then set the five workspace env vars from `tfc-oidc.env`. |
 | `AADSTS70021` | Federated credential subject does not match the HCP Terraform org/project/workspace/run phase | Confirm `TFC_ORG`, `TFC_PROJECT`, and `TFC_WORKSPACE`, then recreate the federated credentials. |
